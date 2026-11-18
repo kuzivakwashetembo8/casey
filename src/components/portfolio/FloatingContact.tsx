@@ -42,7 +42,7 @@ export function FloatingContact() {
     },
     {
       label: "Email",
-      href: `mailto:${EMAIL}?subject=${encodeURIComponent("Project inquiry for K.C.T.")}&body=${encodeURIComponent("You can write your message here")}`,
+      href: `mailto:${EMAIL}?subject=${encodeURIComponent("Website enquiry for Kuzi")}&body=${encodeURIComponent("You can write your message here")}`,
       icon: Mail,
       glow: "shadow-glow-magenta",
     },
