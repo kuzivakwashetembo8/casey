@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useServerFn } from "@tanstack/react-start";
-import { X, Send, Mail, Phone, Github, Loader2, Check, User, AtSign, MessageSquare } from "lucide-react";
+import { X, Send, Mail, Phone, Linkedin, Loader2, Check, User, AtSign, MessageSquare } from "lucide-react";
 import { sendContactEmail } from "@/lib/contact.functions";
 
 type Field = "name" | "email" | "message";
@@ -17,14 +17,14 @@ function ContactCard() {
   return (
     <div className="mt-2 glass-strong rounded-2xl p-4 space-y-2 text-sm">
       <div className="font-display font-semibold text-foreground">Reach Kuzi directly</div>
-      <a href="mailto:dev@kuzivakwashe.online" className="flex items-center gap-2.5 hover:text-[oklch(0.78_0.18_220)] transition">
-        <Mail className="h-4 w-4" /> dev@kuzivakwashe.online
+      <a href="mailto:kuzivakwashetembo8@gmail.com" className="flex items-center gap-2.5 hover:text-[oklch(0.78_0.18_220)] transition">
+        <Mail className="h-4 w-4" /> kuzivakwashetembo8@gmail.com
       </a>
       <a href="tel:+27694893925" className="flex items-center gap-2.5 hover:text-[oklch(0.66_0.27_305)] transition">
         <Phone className="h-4 w-4" /> +27 69 489 3925
       </a>
-      <a href="https://github.com/dev-kuzivakwashe" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[oklch(0.70_0.32_340)] transition">
-        <Github className="h-4 w-4" /> github.com/dev-kuzivakwashe
+      <a href="https://za.linkedin.com/in/kctcomputers" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[oklch(0.70_0.32_340)] transition">
+        <Linkedin className="h-4 w-4" /> linkedin.com/in/kctcomputers
       </a>
     </div>
   );
@@ -114,7 +114,7 @@ function EmailStatusCard({ state, error }: { state: "sending" | "sent" | "error"
       {state === "error" && (
         <div className="space-y-1">
           <div className="font-medium text-foreground">Could not send message.</div>
-          <div className="text-xs text-muted-foreground">{error ?? "Please try again or email dev@kuzivakwashe.online directly."}</div>
+          <div className="text-xs text-muted-foreground">{error ?? "Please try again or email kuzivakwashetembo8@gmail.com directly."}</div>
         </div>
       )}
     </div>
@@ -290,13 +290,12 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
               <div className="max-w-sm">
                 <div className="font-display text-xl">Hi, I can help with Kuzi’s website services</div>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Ask about web & app development, AI training, graphic design,
-                  social media, testing, or how to start a project together.
+                  Ask about Kuzi’s R1,000 business website package, his work, technology stack, or how to hire him.
                 </p>
                 <div className="mt-5 flex flex-wrap justify-center gap-2">
                   {[
-                    "What services do you offer?",
-                    "I can contact Kuzi for you",
+                    "What is included in the R1,000 website?",
+                    "I want to hire Kuzi",
                     "How do I contact Kuzi?",
                   ].map((q) => (
                     <button
@@ -354,7 +353,7 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
                   submit();
                 }
               }}
-              placeholder="Ask about services, projects, or quotes…"
+              placeholder="Ask about services, projects, or the website package…"
               rows={1}
               className="flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground max-h-32"
             />
