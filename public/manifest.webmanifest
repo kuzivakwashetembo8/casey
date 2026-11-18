@@ -1,7 +1,7 @@
 {
-  "name": "K.C.T. — Kuzivakwashe Tembo",
-  "short_name": "K.C.T.",
-  "description": "Portfolio of Kuzivakwashe Tembo — IT specialist digitalizing the legacy work stack.",
+  "name": "Kuzi — R1,000 Business Websites",
+  "short_name": "Kuzi",
+  "description": "Full-stack commercial websites for businesses. 10 pages and 5 features for R1,000.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -9,8 +9,6 @@
   "theme_color": "#0b0714",
   "lang": "en-ZA",
   "dir": "ltr",
-  "categories": ["portfolio", "productivity", "business"],
-  "icons": [
-    { "src": "/favicon.ico", "sizes": "any", "type": "image/x-icon" }
-  ]
+  "categories": ["business", "utilities"],
+  "icons": [{ "src": "/favicon.ico", "sizes": "any", "type": "image/x-icon" }]
 }

@@ -1,12 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Moon, Sun, X, FileUser, FileText } from "lucide-react";
-const profilePic = "/Casey.jpeg";
 
 function ThemeToggle() {
-  const [light, setLight] = useState(() =>
-    typeof document !== "undefined" ? document.documentElement.classList.contains("light") : true
-  );
+  const [light, setLight] = useState(() => typeof document !== "undefined" ? document.documentElement.classList.contains("light") : true);
   const toggle = () => {
     const next = !light;
     setLight(next);
@@ -14,156 +11,47 @@ function ThemeToggle() {
     document.documentElement.classList.add(next ? "light" : "dark");
     try { localStorage.setItem("theme", next ? "light" : "dark"); } catch {}
   };
-  return (
-    <button
-      type="button"
-      onClick={toggle}
-      aria-label={light ? "Switch to dark mode" : "Switch to light mode"}
-      className="grid h-9 w-9 place-items-center rounded-full glass text-foreground transition hover:scale-110"
-    >
-      {light ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-    </button>
-  );
+  return <button type="button" onClick={toggle} aria-label={light ? "Switch to dark mode" : "Switch to light mode"} className="grid h-9 w-9 place-items-center rounded-full glass text-foreground transition hover:scale-110">{light ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}</button>;
 }
 
 const links = [
-  { href: "#expertise", label: "Expertise" },
-  { href: "#skillset", label: "Skillset" },
-  { href: "#capabilities", label: "Capabilities" },
-  { href: "#projects", label: "Projects" },
-  { href: "#infrastructure", label: "Systems" },
-  { href: "#journey", label: "Journey" },
+  { href: "#package", label: "The R1,000 Deal" },
+  { href: "#expertise", label: "My Stack" },
+  { href: "#projects", label: "Work" },
+  { href: "#contact", label: "Contact" },
 ];
-
-const CV_URL = "https://drive.google.com/file/d/1IDEKc3Rml2sV_TN7A5Dg6zwTs1p95Vs9/preview";
-const COVER_URL = "https://drive.google.com/file/d/1F2-ig0q6snW0EzoNjZ_rKRrDhHnfG3yK/preview";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
-  const [intro, setIntro] = useState(true);
-  const [doc, setDoc] = useState<null | { src: string; title: string }>(null);
+  const [request, setRequest] = useState<null | "CV" | "Cover Letter">(null);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setOpen(false); setRequest(null); } };
     window.addEventListener("keydown", onKey);
-    const t = setTimeout(() => setIntro(false), 4000);
-    return () => { window.removeEventListener("keydown", onKey); clearTimeout(t); };
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   return (
     <>
-    {intro && (
-      <div className="profile-intro-overlay" aria-hidden>
-        <div className="profile-intro-image">
-          <img src={profilePic} alt="" />
-          <span className="profile-intro-shimmer" />
+      <header className="fixed left-0 right-0 top-0 z-50">
+        <div className="mx-auto mt-4 max-w-6xl px-4">
+          <nav className="glass-strong nav-shadow flex items-center justify-between rounded-2xl px-5 py-3">
+            <div className="flex items-center gap-2.5">
+              <button type="button" onClick={() => setOpen(true)} aria-label="Open Kuzi profile photo" className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-full ring-1 ring-border/60 transition hover:ring-[oklch(0.66_0.27_305)]"><img src="/Casey.jpeg" alt="Kuzi" className="h-full w-full object-cover" /></button>
+              <Link to="/" className="font-display text-base font-semibold tracking-tight">Kuzi</Link>
+            </div>
+            <ul className="hidden items-center gap-7 lg:flex">{links.map((l) => <li key={l.href}><a href={l.href} className="text-sm text-muted-foreground transition hover:text-foreground">{l.label}</a></li>)}</ul>
+            <div className="flex items-center gap-2">
+              <button type="button" onClick={() => setRequest("CV")} className="hidden items-center gap-1.5 rounded-xl glass px-3 py-2 text-sm font-medium text-foreground transition hover:scale-[1.03] md:inline-flex"><FileUser className="h-4 w-4" /> CV</button>
+              <button type="button" onClick={() => setRequest("Cover Letter")} className="hidden items-center gap-1.5 rounded-xl glass px-3 py-2 text-sm font-medium text-foreground transition hover:scale-[1.03] md:inline-flex"><FileText className="h-4 w-4" /> Cover Letter</button>
+              <ThemeToggle />
+              <a href="#contact" className="rounded-xl bg-foreground px-4 py-2 text-sm font-medium text-background transition hover:opacity-90">Let's Talk →</a>
+            </div>
+          </nav>
         </div>
-      </div>
-    )}
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="mx-auto mt-4 max-w-6xl px-4">
-        <nav className="glass-strong nav-shadow flex items-center justify-between rounded-2xl px-5 py-3">
-          <div className="flex items-center gap-2.5">
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              aria-label="Open profile photo"
-              className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-full ring-1 ring-border/60 transition hover:ring-[oklch(0.66_0.27_305)]"
-            >
-              <img src={profilePic} alt="Kuzi profile" className="h-full w-full object-cover" />
-            </button>
-            <Link to="/" className="font-display text-base font-semibold tracking-tight">K.C.T.</Link>
-          </div>
-          <ul className="hidden items-center gap-7 lg:flex">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a href={l.href} className="text-sm text-muted-foreground transition hover:text-foreground">
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setDoc({ src: CV_URL, title: "CV / Resume" })}
-              className="hidden md:inline-flex items-center gap-1.5 rounded-xl glass px-3 py-2 text-sm font-medium text-foreground transition hover:scale-[1.03]"
-              aria-label="View CV / Resume"
-            >
-              <FileUser className="h-4 w-4" /> CV
-            </button>
-            <button
-              type="button"
-              onClick={() => setDoc({ src: COVER_URL, title: "Cover Letter" })}
-              className="hidden md:inline-flex items-center gap-1.5 rounded-xl glass px-3 py-2 text-sm font-medium text-foreground transition hover:scale-[1.03]"
-              aria-label="View Cover Letter"
-            >
-              <FileText className="h-4 w-4" /> Cover Letter
-            </button>
-            <ThemeToggle />
-            <a
-              href="#contact"
-              className="rounded-xl bg-foreground px-4 py-2 text-sm font-medium text-background transition hover:opacity-90"
-            >
-              Let's Connect →
-            </a>
-          </div>
-        </nav>
-      </div>
-    </header>
-
-    {open && (
-      <div
-        className="fixed inset-0 z-[100] grid place-items-center bg-background/80 backdrop-blur-xl animate-in fade-in"
-        onClick={() => setOpen(false)}
-      >
-        <button
-          type="button"
-          aria-label="Close profile"
-          onClick={() => setOpen(false)}
-          className="absolute right-6 top-6 grid h-11 w-11 place-items-center rounded-full glass-strong text-foreground transition hover:scale-110"
-        >
-          <X className="h-5 w-5" />
-        </button>
-        <div
-          className="relative max-w-[90vw] animate-in zoom-in-75 duration-300"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <img
-            src={profilePic}
-            alt="Kuzi profile"
-            className="max-h-[80vh] w-auto rounded-3xl object-contain shadow-neon"
-          />
-        </div>
-      </div>
-    )}
-    {doc && (
-      <div
-        className="fixed inset-0 z-[110] flex flex-col bg-[#f4f5f7] animate-in fade-in duration-300"
-        onClick={() => setDoc(null)}
-      >
-        <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-2 bg-white shrink-0">
-          <span className="text-sm font-medium text-neutral-800">{doc.title}</span>
-          <button
-            type="button"
-            onClick={() => setDoc(null)}
-            aria-label="Close"
-            className="grid h-9 w-9 place-items-center rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 hover:scale-110 transition"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-        <div className="flex-1 overflow-y-auto bg-[#f4f5f7]" onClick={(e) => e.stopPropagation()}>
-          <iframe
-            src={doc.src}
-            className="w-full min-h-full"
-            style={{ border: 0, background: "#f4f5f7", display: "block" }}
-            allow="autoplay"
-            title={doc.title}
-          />
-        </div>
-      </div>
-    )}
+      </header>
+      {open && <div className="fixed inset-0 z-[100] grid place-items-center bg-background/80 p-4 backdrop-blur-xl animate-in fade-in duration-300" onClick={() => setOpen(false)}><button type="button" onClick={() => setOpen(false)} aria-label="Close profile" className="absolute right-6 top-6 grid h-11 w-11 place-items-center rounded-full glass-strong"><X className="h-5 w-5" /></button><img src="/Casey.jpeg" alt="Kuzi" className="max-h-[80vh] max-w-[90vw] rounded-3xl object-contain shadow-neon animate-in zoom-in-75 slide-in-from-bottom-4 duration-500 ease-out" /></div>}
+      {request && <div role="dialog" aria-modal="true" aria-labelledby="request-title" className="fixed inset-0 z-[110] grid place-items-center bg-background/80 p-4 backdrop-blur-xl" onClick={() => setRequest(null)}><div className="relative w-full max-w-sm rounded-3xl glass-strong p-8 text-center shadow-neon" onClick={(e) => e.stopPropagation()}><button type="button" onClick={() => setRequest(null)} aria-label="Close request message" className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full glass"><X className="h-4 w-4" /></button><div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-gradient-neon text-background">{request === "CV" ? <FileUser className="h-6 w-6" /> : <FileText className="h-6 w-6" />}</div><h2 id="request-title" className="mt-5 font-display text-2xl font-semibold">Request {request}</h2><p className="mt-3 text-sm leading-relaxed text-muted-foreground">Kuzi is open to being hired for web development services, projects and jobs. {request} available upon request.</p></div></div>}
     </>
   );
 }

@@ -1,21 +1,16 @@
 import { Section, SectionHeader } from "./Section";
-type Domain = {
-  name: string;
-  desc: string;
-  glow: "cyan" | "violet" | "magenta";
-  logo: string;
-};
+type Domain = { name: string; desc: string; glow: "cyan" | "violet" | "magenta"; logo: string };
 
 const domains: Domain[] = [
-  { logo: "/brands/windows11.svg", name: "Windows CMD", desc: "Managing the operating system, file directories, services and network diagnostics from the command line.", glow: "cyan" },
-  { logo: "/brands/vscode.svg", name: "Visual Studio Code", desc: "Daily-driver editor for writing, debugging and shipping across every stack with extensions, Git and terminals built in.", glow: "violet" },
-  { logo: "/brands/html5.svg", name: "HTML", desc: "Semantic, accessible markup that gives every interface a clear structure and a meaningful document outline.", glow: "magenta" },
-  { logo: "/brands/css3.svg", name: "CSS", desc: "Responsive layouts, design tokens, transitions and animations that bring interfaces to life across devices.", glow: "cyan" },
-  { logo: "/brands/javascript.svg", name: "JavaScript", desc: "Interactive behavior, DOM control and modern ES syntax powering both browser and Node runtimes.", glow: "magenta" },
-  { logo: "/brands/linux.svg", name: "Linux", desc: "Servers, shells, package managers and containers, the operating system underneath most of the modern web.", glow: "violet" },
-  { logo: "/brands/supabase.svg", name: "Supabase", desc: "Postgres database, authentication, storage and edge functions wired up with row level security out of the box.", glow: "cyan" },
-  { logo: "/brands/vercel.svg", name: "Vercel", desc: "Frictionless deployment, preview environments and edge delivery for modern React and Next.js applications.", glow: "violet" },
-  { logo: "/brands/lovable.svg", name: "Lovable", desc: "AI-native build platform for shipping full stack products in hours, from prompt to production.", glow: "magenta" },
+  { logo: "/brands/windows11.svg", name: "Windows CMD", desc: "Command-line tools for files, system settings and network checks.", glow: "cyan" },
+  { logo: "/brands/vscode.svg", name: "Visual Studio Code", desc: "The editor I use to write, test and maintain website code.", glow: "violet" },
+  { logo: "/brands/html5.svg", name: "HTML", desc: "The structure and content of every website page.", glow: "magenta" },
+  { logo: "/brands/css3.svg", name: "CSS", desc: "Responsive layouts and styling for phones, tablets and desktops.", glow: "cyan" },
+  { logo: "/brands/javascript.svg", name: "JavaScript", desc: "Interactive features that make websites work.", glow: "magenta" },
+  { logo: "/brands/linux.svg", name: "Linux", desc: "Server environments used to run web applications.", glow: "violet" },
+  { logo: "/brands/supabase.svg", name: "Supabase", desc: "Database, sign-in, file storage and back-end services.", glow: "cyan" },
+  { logo: "/brands/vercel.svg", name: "Vercel", desc: "Website hosting and deployment tools.", glow: "violet" },
+  { logo: "/brands/lovable.svg", name: "Lovable", desc: "A tool in my development toolkit for building web applications.", glow: "magenta" },
 ];
 
 const glowClass: Record<string, string> = {
@@ -27,27 +22,15 @@ const glowClass: Record<string, string> = {
 export function Expertise() {
   return (
     <Section id="expertise" reveal="up">
-      <SectionHeader
-        eyebrow="Technology Overview"
-        title={<>A broad stack.<br /><span className="text-gradient-neon">Engineered depth.</span></>}
-        description="Across nine core domains, I build systems that communicate clearly, abstracting the technical jargon from non-technical colleagues."
-      />
-
+      <SectionHeader eyebrow="My technology stack" title={<>Full-stack skills. <span className="text-gradient-neon">One complete website.</span></>} description="I work on both sides of a website: what customers see and the back-end features that make it work." />
       <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {domains.map(({ logo, name, desc, glow }, i) => (
-          <div
-            key={name}
-            className="card-elevated group relative overflow-hidden rounded-2xl glass p-6 transition hover:-translate-y-1 hover:border-[oklch(0.66_0.27_305/0.5)]"
-          >
+          <div key={name} className="card-elevated group relative overflow-hidden rounded-2xl glass p-6 transition hover:-translate-y-1 hover:border-[oklch(0.66_0.27_305/0.5)]">
             <div className={`absolute -top-16 -right-16 h-40 w-40 rounded-full bg-gradient-to-br ${glowClass[glow]} opacity-0 blur-2xl transition group-hover:opacity-100`} />
-            <div className={`relative mb-5 inline-grid h-14 w-14 place-items-center rounded-xl glass-strong ${glowClass[glow]}`}>
-              <img src={logo} alt={`${name} logo`} className="h-9 w-9 object-contain" loading="lazy" decoding="async" />
-            </div>
+            <div className={`relative mb-5 inline-grid h-14 w-14 place-items-center rounded-xl glass-strong ${glowClass[glow]}`}><img src={logo} alt={`${name} logo`} className="h-9 w-9 object-contain" loading="lazy" decoding="async" /></div>
             <h3 className="font-display text-lg font-semibold">{name}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-            <div className="mt-5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
-              0{i + 1} / {domains.length}
-            </div>
+            <div className="mt-5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">0{i + 1} / {domains.length}</div>
           </div>
         ))}
       </div>
