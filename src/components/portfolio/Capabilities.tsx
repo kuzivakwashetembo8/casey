@@ -1,5 +1,5 @@
 import { Section, SectionHeader } from "./Section";
-import { CheckCircle2, Layers3, Sparkles } from "lucide-react";
+import { CheckCircle2, Layers3, Tag } from "lucide-react";
 
 const pages = ["Home", "About", "Services", "Contact", "Products", "Pricing", "Gallery", "Testimonials", "FAQ", "Blog / Updates"];
 const features = [
@@ -22,7 +22,7 @@ export function Capabilities() {
         <div className="glass-strong relative overflow-hidden rounded-3xl p-8 shadow-neon lg:p-10">
           <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[oklch(0.66_0.27_305/0.2)] blur-3xl" />
           <div className="relative">
-            <div className="inline-flex items-center gap-2 rounded-full bg-gradient-neon px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-background"><Sparkles className="h-3 w-3" /> Fixed price</div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-gradient-neon px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-background"><Tag className="h-3 w-3" /> Fixed price</div>
             <div className="mt-7 font-display text-6xl font-bold tracking-tight">R1,000</div>
             <p className="mt-2 text-sm text-muted-foreground">One commercial website. One price.</p>
             <div className="my-7 h-px bg-border/70" />
