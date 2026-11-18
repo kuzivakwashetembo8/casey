@@ -34,7 +34,7 @@ export function Expertise() {
       />
 
       <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {domains.map(({ logo: Icon, name, desc, glow }, i) => (
+        {domains.map(({ logo, name, desc, glow }, i) => (
           <div
             key={name}
             className="card-elevated group relative overflow-hidden rounded-2xl glass p-6 transition hover:-translate-y-1 hover:border-[oklch(0.66_0.27_305/0.5)]"
