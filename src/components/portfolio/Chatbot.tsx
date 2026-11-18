@@ -130,8 +130,10 @@ function messageText(m: UIMessage) {
 
 export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [input, setInput] = useState("");
+  const [chatError, setChatError] = useState<string | null>(null);
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({ api: "/api/chat" }),
+    onError: () => setChatError("The assistant couldn't respond just now. Please try again."),
   });
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -210,11 +212,13 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
     const text = input.trim();
     if (!text || busy) return;
     setInput("");
+    setChatError(null);
     await sendMessage({ text });
   }
 
   function submitAsk(field: Field, value: string) {
     setDetails((d) => ({ ...d, [field]: value }));
+    setChatError(null);
     sendMessage({ text: value });
   }
 
@@ -399,6 +403,12 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
               </div>
             </div>
           ))}
+
+          {chatError && (
+            <div role="alert" className="mx-auto max-w-[85%] rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-foreground">
+              {chatError}
+            </div>
+          )}
 
           {busy && (
             <div className="flex justify-start">
