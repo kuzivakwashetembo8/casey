@@ -9,7 +9,7 @@ function ThemeToggle() {
     setLight(next);
     document.documentElement.classList.remove("light", "dark");
     document.documentElement.classList.add(next ? "light" : "dark");
-    try { localStorage.setItem("theme", next ? "light" : "dark"); } catch {}
+    try { localStorage.setItem("themePreference", next ? "light" : "dark"); } catch {}
   };
   return <button type="button" onClick={toggle} aria-label={light ? "Switch to dark mode" : "Switch to light mode"} className="grid h-9 w-9 place-items-center rounded-full glass text-foreground transition hover:scale-110">{light ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}</button>;
 }

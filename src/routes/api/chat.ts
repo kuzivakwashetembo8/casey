@@ -44,7 +44,7 @@ export const Route = createFileRoute("/api/chat")({
           baseURL: "https://api.groq.com/openai/v1",
           headers: { Authorization: `Bearer ${key}` },
         });
-        const result = streamText({ model: groq("llama-3.3-70b-versatile"), system: SYSTEM, messages: await convertToModelMessages(messages), maxOutputTokens: MAX_OUTPUT_TOKENS });
+        const result = streamText({ model: groq("openai/gpt-oss-120b"), system: SYSTEM, messages: await convertToModelMessages(messages), maxOutputTokens: MAX_OUTPUT_TOKENS });
         return result.toUIMessageStreamResponse({ originalMessages: messages });
       },
     },
