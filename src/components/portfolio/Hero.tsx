@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Info, X } from "lucide-react";
-import cert1 from "@/assets/cert-1.jpg.asset.json";
-import cert2 from "@/assets/cert-2.jpg.asset.json";
+const certificates = ["/Certificate.jpg", "/Certificate.jpg"];
 
 export function Hero() {
-  const [flipped, setFlipped] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
-
-  useEffect(() => {
-    const id = window.setInterval(() => setFlipped((v) => !v), 3500);
-    return () => window.clearInterval(id);
-  }, []);
 
   return (
     <section className="relative overflow-hidden pt-36 pb-24 lg:pt-44 lg:pb-32">
@@ -63,36 +56,20 @@ export function Hero() {
         </div>
 
         <div className="relative">
-          <div className="perspective-1000">
-            <div
-              className={`relative aspect-[4/3] w-full preserve-3d transition-transform duration-[1200ms] ease-in-out ${
-                flipped ? "rotate-y-180" : ""
-              }`}
-            >
-              {[cert1, cert2].map((c, i) => (
-                <div
-                  key={i}
-                  className={`absolute inset-0 backface-hidden glass-strong overflow-hidden rounded-3xl p-1 shadow-neon ${
-                    i === 1 ? "rotate-y-180" : ""
-                  }`}
-                >
-                  <img
-                    src={c.url}
-                    alt={`K.C.T. certification ${i + 1}`}
-                    className="h-full w-full select-none rounded-[1.4rem] object-cover pointer-events-none"
-                    draggable={false}
-                  />
-                  {/* transparent shield: blocks right-click + drag, click opens info */}
-                  <button
-                    type="button"
-                    onContextMenu={(e) => e.preventDefault()}
-                    onClick={() => setShowInfo(true)}
-                    aria-label="Certificate information"
-                    className="absolute inset-0 z-10 cursor-help rounded-[1.4rem]"
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="relative aspect-[4/3] w-full overflow-hidden glass-strong rounded-3xl p-1 shadow-neon">
+            <img
+              src="/Certificate.jpg"
+              alt="K.C.T. certification"
+              className="h-full w-full select-none rounded-[1.4rem] object-cover pointer-events-none"
+              draggable={false}
+            />
+            <button
+              type="button"
+              onContextMenu={(e) => e.preventDefault()}
+              onClick={() => setShowInfo(true)}
+              aria-label="Certificate information"
+              className="absolute inset-0 z-10 cursor-help rounded-[1.4rem]"
+            />
           </div>
         </div>
       </div>
