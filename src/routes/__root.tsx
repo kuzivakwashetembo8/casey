@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: DEFAULT_TITLE },
       { name: "description", content: DEFAULT_DESCRIPTION },
-      { name: "author", content: "Kuzivakwashe Tembo" },
+      { name: "author", content: "Kuzi" },
       { name: "theme-color", content: THEME_COLOR },
       { name: "color-scheme", content: "light dark" },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
