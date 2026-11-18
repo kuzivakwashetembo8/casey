@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useServerFn } from "@tanstack/react-start";
-import { X, Send, Mail, Phone, Linkedin, Loader2, Check, User, AtSign, MessageSquare } from "lucide-react";
+import { X, Send, Mail, Phone, Linkedin, Loader2, Check, User, AtSign, MessageSquare, Volume2, Mic, MicOff } from "lucide-react";
 import { sendContactEmail } from "@/lib/contact.functions";
 
 type Field = "name" | "email" | "message";
@@ -135,6 +135,10 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
   });
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const recognitionRef = useRef<any>(null);
+  const [speakingId, setSpeakingId] = useState<string | null>(null);
+  const [listening, setListening] = useState(false);
 
   // Collected lead details (kept client-side across the conversation).
   const [details, setDetails] = useState<{ name?: string; email?: string; message?: string }>({});
@@ -212,6 +216,66 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
   function submitAsk(field: Field, value: string) {
     setDetails((d) => ({ ...d, [field]: value }));
     sendMessage({ text: value });
+  }
+
+  async function speak(text: string, id: string) {
+    audioRef.current?.pause();
+    audioRef.current = null;
+    setSpeakingId(id);
+    try {
+      const response = await fetch("/api/voice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: text.slice(0, 1200) }),
+      });
+      if (!response.ok) throw new Error(await response.text());
+      const audioUrl = URL.createObjectURL(await response.blob());
+      const audio = new Audio(audioUrl);
+      audioRef.current = audio;
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        setSpeakingId(null);
+      };
+      audio.onerror = () => {
+        URL.revokeObjectURL(audioUrl);
+        setSpeakingId(null);
+      };
+      await audio.play();
+    } catch (error) {
+      console.error("Unable to play assistant voice:", error);
+      setSpeakingId(null);
+    }
+  }
+
+  function toggleListening() {
+    if (listening) {
+      recognitionRef.current?.stop();
+      setListening(false);
+      return;
+    }
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      window.alert("Voice input is not supported in this browser. You can still type your message.");
+      return;
+    }
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-ZA";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onresult = (event: any) => {
+      const transcript = event.results?.[0]?.[0]?.transcript?.trim();
+      if (transcript) {
+        setInput(transcript);
+        sendMessage({ text: transcript });
+        setInput("");
+      }
+      setListening(false);
+    };
+    recognition.onerror = () => setListening(false);
+    recognition.onend = () => setListening(false);
+    recognitionRef.current = recognition;
+    setListening(true);
+    recognition.start();
   }
 
   function renderMessage(m: UIMessage) {
@@ -322,6 +386,16 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
                 }`}
               >
                 {renderMessage(m)}
+                {m.role === "assistant" && !ASK_RE.test(messageText(m)) && !SEND_RE.test(messageText(m)) && !messageText(m).includes("[[CONTACT_CARD]]") && messageText(m).trim() && (
+                  <button
+                    type="button"
+                    onClick={() => speak(messageText(m).trim(), m.id)}
+                    aria-label="Read response aloud"
+                    className="mt-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition"
+                  >
+                    <Volume2 className="h-3.5 w-3.5" /> {speakingId === m.id ? "Playing…" : "Listen"}
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -357,6 +431,15 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
               rows={1}
               className="flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground max-h-32"
             />
+            <button
+              type="button"
+              onClick={toggleListening}
+              disabled={busy}
+              aria-label={listening ? "Stop voice input" : "Start voice input"}
+              className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl glass transition hover:scale-105 disabled:opacity-50 ${listening ? "text-red-500" : "text-muted-foreground"}`}
+            >
+              {listening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+            </button>
             <button
               type="submit"
               disabled={busy || !input.trim()}

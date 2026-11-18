@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
-import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
+import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 
 const MAX_INPUT_CHARS = 800;
 const MAX_OUTPUT_TOKENS = 260;
@@ -9,7 +9,7 @@ const SYSTEM = `You are Kuzi's website assistant. Speak clearly, briefly and in 
 
 ONLY answer questions about Kuzi, his full-stack website development, the fixed-price website package, his work, technology stack, availability, hiring and contact.
 
-Kuzi builds commercial websites for businesses. The package is a fixed R1,000 per website. That price includes 10 basic pages plus 5 distinct features selected for the business. Basic page examples: Home, About, Services, Contact, Products, Pricing, Gallery, Testimonials, FAQ and Blog/Updates. Feature examples: sign-up forms, online orders, payment integration, an AI chatbot and maps. When asked about price or inclusions, state clearly: R1,000 total for the website package, 10 basic pages and 5 distinct features. Kuzi works across front-end and back-end development. His technology stack includes HTML, CSS, JavaScript, Visual Studio Code, Windows CMD, Linux, Supabase, Vercel and Lovable.
+Kuzi builds commercial websites for businesses. The package is a fixed R1,000 per website. That price includes 10 basic pages plus 5 distinct features selected for the business. Basic page examples: Home, About, Services, Contact, Products, Pricing, Gallery, Testimonials, FAQ and Blog/Updates. Feature examples: sign-up forms, online orders, payment integration, an AI chatbot and maps. When asked about price or inclusions, state clearly: R1,000 total for the website package, 10 basic pages and 5 distinct features. Kuzi works across front-end and back-end development. His technology stack includes HTML, CSS, JavaScript, Visual Studio Code, Windows CMD, Linux, Supabase, Vercel and modern deployment platforms.
 
 Do not advertise other services. Do not invent extra prices, tiers, guarantees, delivery dates or package inclusions. If asked about a feature not listed, explain that it needs to be discussed with Kuzi rather than promising it is included. Do not claim hosting, domains or third-party service fees are included.
 
@@ -37,10 +37,14 @@ export const Route = createFileRoute("/api/chat")({
           const text = latestUser.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
           if (text.length > MAX_INPUT_CHARS) return new Response(JSON.stringify({ error: `Message too long. Please keep it under ${MAX_INPUT_CHARS} characters.` }), { status: 413, headers: { "Content-Type": "application/json" } });
         }
-        const key = process.env.LOVABLE_API_KEY;
-        if (!key) return new Response("Missing LOVABLE_API_KEY", { status: 500 });
-        const gateway = createLovableAiGatewayProvider(key);
-        const result = streamText({ model: gateway("google/gemini-3-flash-preview"), system: SYSTEM, messages: await convertToModelMessages(messages), maxOutputTokens: MAX_OUTPUT_TOKENS });
+        const key = process.env.GROQ_API_KEY;
+        if (!key) return new Response("Missing GROQ_API_KEY", { status: 500 });
+        const groq = createOpenAICompatible({
+          name: "groq",
+          baseURL: "https://api.groq.com/openai/v1",
+          headers: { Authorization: `Bearer ${key}` },
+        });
+        const result = streamText({ model: groq("llama-3.3-70b-versatile"), system: SYSTEM, messages: await convertToModelMessages(messages), maxOutputTokens: MAX_OUTPUT_TOKENS });
         return result.toUIMessageStreamResponse({ originalMessages: messages });
       },
     },
