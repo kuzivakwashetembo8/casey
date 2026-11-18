@@ -4,7 +4,7 @@ import { Chatbot } from "./Chatbot";
 
 const WHATSAPP_NUMBER = "27694893925";
 const PHONE_NUMBER = "+27694893925";
-const EMAIL = "dev@kuzivakwashe.online";
+const EMAIL = "kuzivakwashetembo8@gmail.com";
 
 export function FloatingContact() {
   const [open, setOpen] = useState(false);
