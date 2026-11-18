@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Info, X } from "lucide-react";
-import cert1 from "@/assets/cert-1.jpg.asset.json";
-import cert2 from "@/assets/cert-2.jpg.asset.json";
+const certificates = ["/Certificate.jpg", "/Certificate.jpg"];
 
 export function Hero() {
   const [flipped, setFlipped] = useState(false);
@@ -77,7 +76,7 @@ export function Hero() {
                   }`}
                 >
                   <img
-                    src={c.url}
+                    src={certificate}
                     alt={`K.C.T. certification ${i + 1}`}
                     className="h-full w-full select-none rounded-[1.4rem] object-cover pointer-events-none"
                     draggable={false}
