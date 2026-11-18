@@ -42,12 +42,21 @@ export function Hero() {
             ))}
           </dl>
         </div>
-        <div className="relative mx-auto w-full max-w-lg">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl glass-strong p-1 shadow-neon">
-            <img src="/Certificate.jpg" alt="K.C.T. certification" className="h-full w-full rounded-[1.4rem] object-contain" />
-            <button type="button" onClick={() => setShowInfo(true)} aria-label="About Kuzi" className="absolute bottom-5 right-5 z-10 grid h-11 w-11 place-items-center rounded-full glass-strong text-foreground shadow-lg">
-              <Info className="h-5 w-5" />
-            </button>
+        <div className="relative">
+          <div className="relative aspect-[4/3] w-full overflow-hidden glass-strong rounded-3xl p-1 shadow-neon">
+            <img
+              src="/Certificate.jpg"
+              alt="K.C.T. certification"
+              className="h-full w-full select-none rounded-[1.4rem] object-cover pointer-events-none"
+              draggable={false}
+            />
+            <button
+              type="button"
+              onContextMenu={(e) => e.preventDefault()}
+              onClick={() => setShowInfo(true)}
+              aria-label="Certificate information"
+              className="absolute inset-0 z-10 cursor-help rounded-[1.4rem]"
+            />
           </div>
         </div>
       </div>
