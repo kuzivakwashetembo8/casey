@@ -3,104 +3,58 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Section, SectionHeader } from "./Section";
 
-const GITHUB_BASE = "https://github.com/dev-kuzivakwashe";
-const slugify = (n: string) =>
-  n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-const projectLinkOverrides: Record<string, string> = {
-  "First Aid": "https://firstaidapp.co.za",
-  Doclab: "https://doclab.online",
-  Kuzi: "https://gokuzi.online",
-};
-const linkFor = (name: string) => projectLinkOverrides[name] ?? `${GITHUB_BASE}/${slugify(name)}`;
-
 const projects = [
   {
+    name: "African Centre for Global Christianity",
+    domain: "acgc.site",
+    link: "https://acgc.site",
+    tag: "Education · Theology",
+    desc: "A learning portal for the African Centre for Global Christianity, supporting the institution’s theology education programmes and digital learning experience.",
+    capabilities: ["Online learning", "Theology education", "Digital learning portal"],
+    outcome: "A central online destination for theology education.",
+    accent: "violet",
+  },
+  {
     name: "First Aid",
-    tag: "Healthcare AI · Telemedicine",
-    desc: "AI triage and care tracker linking patients with clinicians through shared case timelines.",
-    stack: ["React", "FastAPI", "PostgreSQL", "OpenAI"],
-    outcome: "Real-time triage and secure messaging.",
-    accent: "magenta",
-  },
-  {
-    name: "Doclab",
-    tag: "AI · Document Generation",
-    desc: "Generative studio drafting contracts, proposals and reports from a single prompt.",
-    stack: ["Next.js", "LangChain", "pgvector"],
-    outcome: "Prompt to polished PDF in under a minute.",
-    accent: "violet",
-  },
-  {
-    name: "Likeable",
-    tag: "Developer Tools · Vibe Coding",
-    desc: "Vibe-coding tool turning natural-language briefs into clean, dependency-free websites.",
-    stack: ["TypeScript", "Lovable SDK", "Vite"],
-    outcome: "Zero-framework sites, host anywhere.",
-    accent: "cyan",
-  },
-  {
-    name: "Kuzi",
-    tag: "Marketing · Autonomous Agents",
-    desc: "Autonomous agent that finds leads, drafts outreach and ships sequenced email campaigns.",
-    stack: ["Python", "Playwright", "LangGraph", "Resend"],
-    outcome: "Lead gen and delivery on autopilot.",
-    accent: "violet",
-  },
-  {
-    name: "CashHub",
-    tag: "Social Platform · EdTech",
-    desc: "Social platform teaching members how to earn online with tutors, agents and toolkits.",
-    stack: ["Next.js", "Supabase", "Stripe"],
-    outcome: "Communities, courses and monetization in one app.",
-    accent: "magenta",
-  },
-  {
-    name: "Cosmic Memory",
-    tag: "Game · Multiplayer AI",
-    desc: "Card memory game across 100 levels with offline, online, robotic and adaptive AI opponents.",
-    stack: ["React Native", "WebSockets", "Node.js"],
-    outcome: "Four modes, 100 levels, global matchmaking.",
-    accent: "cyan",
-  },
-  {
-    name: "Linkle",
-    tag: "Productivity Suite · In Progress",
-    desc: "Lightweight Google-style suite unifying Gmail, Gemini and Search in one workspace.",
-    stack: ["React", "Gemini API", "Gmail API"],
-    outcome: "Mail, chat and search in one place.",
-    accent: "violet",
-  },
-  {
-    name: "Selah",
-    tag: "Faith · Mobile Experience",
-    desc: "Bible app with a vertical verse feed, offline scripture, daily prayers and a study chat.",
-    stack: ["React Native", "Expo", "Supabase", "OpenAI"],
-    outcome: "Immersive scripture, offline-first.",
+    domain: "firstaidapp.co.za",
+    link: "https://firstaidapp.co.za",
+    tag: "Healthcare · Emergency Support",
+    desc: "An AI-assisted emergency support platform that helps patients communicate their needs, connect with doctors and identify relevant prescription information.",
+    capabilities: ["AI-assisted support", "Doctor connection", "Prescription identification"],
+    outcome: "Helping patients access relevant support during emergencies.",
     accent: "magenta",
   },
   {
     name: "Grey Analytics",
-    tag: "FinTech · Agentic Analysis",
-    desc: "Four cooperating agents audit financial documents and ship a five-page action report.",
-    stack: ["Python", "LangGraph", "DuckDB", "Pandas"],
-    outcome: "Multi-agent audits, executive-ready.",
+    domain: "greyanalytics.co.za",
+    link: "https://greyanalytics.co.za",
+    tag: "Finance · Risk & Audit",
+    desc: "A financial document analytics platform that helps identify calculation errors, flag potential fraud indicators and support auditing processes.",
+    capabilities: ["Document analysis", "Error detection", "Fraud indicators", "Audit support"],
+    outcome: "Clearer financial reviews and more focused audit work.",
     accent: "cyan",
   },
   {
-    name: "Taxinger",
-    tag: "Mobility · Real-Time Geolocation",
-    desc: "Real-time marketplace pairing taxis with nearby passengers via live map hotspots.",
-    stack: ["React Native", "Mapbox", "Supabase Realtime"],
-    outcome: "Sub-second two-sided matching.",
+    name: "SA Learn",
+    domain: "salearn.online",
+    link: "https://salearn.online",
+    tag: "Education · Career Development",
+    desc: "An education platform for South African students to calculate APS scores, explore careers matched to their marks, find opportunities and apply to universities.",
+    capabilities: ["APS calculator", "Career matching", "Job discovery", "University applications"],
+    outcome: "Connecting academic results with education and career opportunities.",
     accent: "violet",
   },
+  {
+    name: "Cwenga Peter",
+    domain: "cwengapeter.info",
+    link: "https://cwengapeter.info",
+    tag: "Professional Services · Legal",
+    desc: "A professional portfolio website for a lawyer, presenting a clear digital profile and an accessible point of contact for prospective clients.",
+    capabilities: ["Professional profile", "Legal portfolio", "Client enquiries"],
+    outcome: "A focused online presence for a legal professional.",
+    accent: "magenta",
+  },
 ];
-
-const accentRing: Record<string, string> = {
-  cyan: "shadow-glow-cyan",
-  violet: "shadow-glow-violet",
-  magenta: "shadow-glow-magenta",
-};
 
 const accentGradient: Record<string, string> = {
   cyan: "from-[oklch(0.78_0.18_220)] to-[oklch(0.65_0.22_260)]",
@@ -136,11 +90,11 @@ export function Projects() {
     <Section id="projects">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeader
-          eyebrow="Featured Projects"
-          title={<>Systems shipped.<br /><span className="text-gradient-neon">Problems solved.</span></>}
+          eyebrow="Selected Work"
+          title={<>Websites built for<br /><span className="text-gradient-neon">real-world needs.</span></>}
         />
         <a href="#contact" className="glass rounded-xl px-5 py-2.5 text-sm font-medium transition hover:bg-[oklch(0.3_0.1_285/0.4)]">
-          Request case studies →
+          Discuss a project →
         </a>
       </div>
 
@@ -159,7 +113,6 @@ export function Projects() {
                       isActive ? "scale-100 opacity-100" : "scale-[0.82] opacity-40"
                     }`}
                   >
-                    {/* floating glowing orbs behind the glass */}
                     <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-tl-3xl rounded-br-3xl">
                       <div
                         className={`absolute -top-10 -left-8 h-40 w-40 rounded-full bg-gradient-to-br ${accentGradient[p.accent]} opacity-60 blur-3xl animate-float`}
@@ -171,9 +124,10 @@ export function Projects() {
                     </div>
 
                     <a
-                      href={linkFor(p.name)}
+                      href={p.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Visit ${p.name} website`}
                       className="relative flex w-full flex-col overflow-hidden rounded-tl-3xl rounded-br-3xl glass p-8 text-white backdrop-blur-3xl lg:p-10 transition hover:scale-[1.01]"
                     >
                       <div className="flex items-start justify-between gap-3">
@@ -182,6 +136,7 @@ export function Projects() {
                             {p.tag}
                           </div>
                           <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">{p.name}</h3>
+                          <div className="mt-1 font-mono text-xs text-white/60">{p.domain}</div>
                         </div>
                         <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full glass text-white">
                           <ArrowUpRight className="h-4 w-4" />
@@ -190,16 +145,16 @@ export function Projects() {
                       <p className="mt-5 text-sm leading-relaxed text-white/85">{p.desc}</p>
                       <div className="mt-6">
                         <div className="flex flex-wrap gap-1.5">
-                          {p.stack.map((s) => (
+                          {p.capabilities.map((capability) => (
                             <span
-                              key={s}
-                              className="rounded-md border border-white/20 bg-white/10 px-2 py-0.5 font-mono text-[10px] text-white/90"
+                              key={capability}
+                              className="rounded-md border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] text-white/90"
                             >
-                              {s}
+                              {capability}
                             </span>
                           ))}
                         </div>
-                        <div className="mt-5 border-t border-white/15 pt-4 font-mono text-xs leading-snug text-white/85">
+                        <div className="mt-5 border-t border-white/15 pt-4 text-xs leading-snug text-white/85">
                           {p.outcome}
                         </div>
                       </div>
