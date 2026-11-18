@@ -296,7 +296,7 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
                 <div className="mt-5 flex flex-wrap justify-center gap-2">
                   {[
                     "What services do you offer?",
-                    "I can contact K.C.T for you",
+                    "I can contact Kuzi for you",
                     "How do I contact Kuzi?",
                   ].map((q) => (
                     <button
