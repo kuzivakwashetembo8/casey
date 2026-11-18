@@ -44,7 +44,7 @@ export function Hero() {
         </div>
         <div className="relative mx-auto w-full max-w-lg">
           <div className="relative aspect-[4/5] overflow-hidden rounded-3xl glass-strong p-1 shadow-neon">
-            <img src="/Casey.jpeg" alt="Kuzi, full-stack website developer" className="h-full w-full rounded-[1.4rem] object-cover" />
+            <img src="/Certificate.jpg" alt="K.C.T. certification" className="h-full w-full rounded-[1.4rem] object-contain" />
             <button type="button" onClick={() => setShowInfo(true)} aria-label="About Kuzi" className="absolute bottom-5 right-5 z-10 grid h-11 w-11 place-items-center rounded-full glass-strong text-foreground shadow-lg">
               <Info className="h-5 w-5" />
             </button>
