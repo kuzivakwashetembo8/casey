@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Section } from "./Section";
-import { Mail, Github, Phone, Send, Loader2 } from "lucide-react";
+import { Mail, Linkedin, Phone, Send, Loader2 } from "lucide-react";
 import { sendContactEmail } from "@/lib/contact.functions";
 import { toast } from "sonner";
 
@@ -31,9 +31,9 @@ export function Contact() {
             <h2 className="font-display text-4xl font-bold leading-tight sm:text-5xl">Let's build your <span className="text-gradient-neon">business website.</span></h2>
             <p className="mt-5 max-w-md text-muted-foreground">Need a website, have a project in mind, or looking to hire a web developer? Tell Kuzi what you need. The website package is R1,000.</p>
             <ul className="mt-8 space-y-3">
-              <li><a href="mailto:dev@kuzivakwashe.online" className="group flex items-center gap-3 text-sm"><span className="grid h-9 w-9 place-items-center rounded-xl glass"><Mail className="h-4 w-4" /></span>dev@kuzivakwashe.online</a></li>
+              <li><a href="mailto:kuzivakwashetembo8@gmail.com" className="group flex items-center gap-3 text-sm"><span className="grid h-9 w-9 place-items-center rounded-xl glass"><Mail className="h-4 w-4" /></span>kuzivakwashetembo8@gmail.com</a></li>
               <li><a href="tel:+27694893925" className="group flex items-center gap-3 text-sm"><span className="grid h-9 w-9 place-items-center rounded-xl glass"><Phone className="h-4 w-4" /></span>+27 69 489 3925</a></li>
-              <li><a href="https://github.com/dev-kuzivakwashe" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 text-sm"><span className="grid h-9 w-9 place-items-center rounded-xl glass"><Github className="h-4 w-4" /></span>github.com/dev-kuzivakwashe</a></li>
+              <li><a href="https://za.linkedin.com/in/kctcomputers" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 text-sm"><span className="grid h-9 w-9 place-items-center rounded-xl glass"><Linkedin className="h-4 w-4" /></span>linkedin.com/in/kctcomputers</a></li>
             </ul>
           </div>
           <form className="glass rounded-2xl p-6 sm:p-8" onSubmit={onSubmit}>
