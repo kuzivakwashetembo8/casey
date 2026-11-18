@@ -16,7 +16,7 @@ const FIELD_META: Record<Field, { label: string; placeholder: string; icon: type
 function ContactCard() {
   return (
     <div className="mt-2 glass-strong rounded-2xl p-4 space-y-2 text-sm">
-      <div className="font-display font-semibold text-foreground">Reach K.C.T. directly</div>
+      <div className="font-display font-semibold text-foreground">Reach Kuzi directly</div>
       <a href="mailto:dev@kuzivakwashe.online" className="flex items-center gap-2.5 hover:text-[oklch(0.78_0.18_220)] transition">
         <Mail className="h-4 w-4" /> dev@kuzivakwashe.online
       </a>
@@ -102,13 +102,13 @@ function EmailStatusCard({ state, error }: { state: "sending" | "sent" | "error"
     <div className="mt-2 glass-strong rounded-2xl p-4 text-sm">
       {state === "sending" && (
         <div className="flex items-center gap-2 text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" /> Sending your message to K.C.T…
+          <Loader2 className="h-4 w-4 animate-spin" /> Sending your message to Kuzi…
         </div>
       )}
       {state === "sent" && (
         <div className="flex items-center gap-2 text-foreground">
           <Check className="h-4 w-4 text-[oklch(0.72_0.18_150)]" />
-          Message delivered. K.C.T. will get back to you soon.
+          Message delivered. Kuzi will get back to you soon.
         </div>
       )}
       {state === "error" && (
@@ -288,7 +288,7 @@ export function Chatbot({ open, onClose }: { open: boolean; onClose: () => void 
           {messages.length === 0 && (
             <div className="grid h-full place-items-center text-center">
               <div className="max-w-sm">
-                <div className="font-display text-xl">Hi, I speak for K.C.T.</div>
+                <div className="font-display text-xl">Hi, I can help with Kuzi’s website services</div>
                 <p className="mt-2 text-sm text-muted-foreground">
                   Ask about web & app development, AI training, graphic design,
                   social media, testing, or how to start a project together.
